@@ -4,9 +4,9 @@ import andruha_pgs.garage.exceptions.exceptions.EmptyResponseFromDBException;
 import andruha_pgs.garage.exceptions.exceptions.EntityEditOrDeleteIdExistenceInDBException;
 import andruha_pgs.garage.exceptions.exceptions.EntityInsertIdExistenceInDBException;
 import andruha_pgs.garage.models.entities.Vehicle;
+import andruha_pgs.garage.models.enums.BodyType;
 import andruha_pgs.garage.repositories.VehicleRepository;
 import andruha_pgs.garage.services.interfaces.VehicleService;
-import com.sun.xml.internal.ws.wsdl.writer.document.soap.BodyType;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -100,10 +100,10 @@ public class VehicleServiceImpl implements VehicleService {
         if (isVehicleIdInDB(numberPlates)) {
             LOGGER.debug("Calls repository to delete");
             vehicleRepository.delete(numberPlates);
-            LOGGER.debug("{} with numberPlates {} has been updated", Vehicle.class, numberPlates);
+            LOGGER.debug("{} with numberPlates {} has been deleted", Vehicle.class, numberPlates);
         }
         else {
-            throw new EntityInsertIdExistenceInDBException(numberPlates);
+            throw new EntityEditOrDeleteIdExistenceInDBException(numberPlates);
         }
 
     }

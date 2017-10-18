@@ -1,7 +1,8 @@
 package andruha_pgs.garage.models.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import andruha_pgs.garage.views.View;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,24 +17,27 @@ public class Owner {
     @Id
     @GeneratedValue
     @Column(nullable = false)
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private Long id;
     @Column(nullable = false, length = 100)
     @NotNull
     @Size(max = 100, message = "Maximum 100 symbols.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private String fullName;
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     @NotNull
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private Date dateOfBirth;
     @Version
     @Column(nullable = false)
     private int version;
 
-    @JsonBackReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vehicle__owner", joinColumns = @JoinColumn(name = "owner_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"))
+    @JsonView(value = {View.Owner.class})
     private Set<Vehicle> vehicles;
 
 
@@ -70,5 +74,13 @@ public class Owner {
 
     public void setVersion(int version) {
         this.version = version;
+    }
+
+    public Set<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(Set<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }

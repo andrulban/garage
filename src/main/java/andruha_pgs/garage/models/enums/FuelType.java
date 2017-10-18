@@ -1,11 +1,18 @@
 package andruha_pgs.garage.models.enums;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public enum FuelType {
-    GASOLINE("Gasoline"),
-    DIESEL("Diesel"),
-    PROPANE("Liquefied Petroleum"),
-    ETHANOL("Ethanol"),
-    BIO_DIESEL("Bio-diesel");
+    @JsonProperty("gasoline")
+    GASOLINE("gasoline"),
+    @JsonProperty("diesel")
+    DIESEL("diesel"),
+    @JsonProperty("propane")
+    PROPANE("propane"),
+    @JsonProperty("ethanol")
+    ETHANOL("ethanol"),
+    @JsonProperty("bio-diesel")
+    BIO_DIESEL("bio-diesel");
 
 
     private final String value;

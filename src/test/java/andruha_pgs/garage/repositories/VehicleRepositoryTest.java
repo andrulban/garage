@@ -2,9 +2,9 @@ package andruha_pgs.garage.repositories;
 
 import andruha_pgs.garage.models.entities.Owner;
 import andruha_pgs.garage.models.entities.Vehicle;
+import andruha_pgs.garage.models.enums.BodyType;
+import andruha_pgs.garage.models.enums.Color;
 import andruha_pgs.garage.models.enums.FuelType;
-import andruha_pgs.garage.models.enums.VehicleBodyType;
-import andruha_pgs.garage.models.enums.VehicleColor;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +15,9 @@ import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @Transactional
@@ -39,8 +41,8 @@ public class VehicleRepositoryTest {
         vehicle.setFuelType(FuelType.GASOLINE);
         vehicle.setEngineCapacityCm3(2500);
         vehicle.setMileage(140000);
-        vehicle.setColor(VehicleColor.RED);
-        vehicle.setBodyType(VehicleBodyType.OFFROAD_4X4);
+        vehicle.setColor(Color.RED);
+        vehicle.setBodyType(BodyType.OFFROAD_4X4);
         vehicle.setOwners(owners);
     }
     @Test

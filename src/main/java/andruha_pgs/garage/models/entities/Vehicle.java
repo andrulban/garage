@@ -1,9 +1,10 @@
 package andruha_pgs.garage.models.entities;
 
+import andruha_pgs.garage.models.enums.BodyType;
+import andruha_pgs.garage.models.enums.Color;
 import andruha_pgs.garage.models.enums.FuelType;
-import andruha_pgs.garage.models.enums.VehicleBodyType;
-import andruha_pgs.garage.models.enums.VehicleColor;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import andruha_pgs.garage.views.View;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -13,60 +14,70 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@Table( indexes = {@Index(columnList = "brand"), @Index(columnList = "bodyType")})
+@Table(indexes = {@Index(columnList = "brand"), @Index(columnList = "bodyType")})
 public class Vehicle {
     @Id
     @Column(nullable = false, length = 10, name = "id")
     @NotNull
     @Size(max = 10, message = "Maximum 10 symbols.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private String numberPlate;
     @Column(nullable = false)
     @NotNull
     @Min(value = 500, message = "Minimum weight is 500 kg.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private int weightKg;
     @Column(nullable = false, length = 25)
     @NotNull
     @Size(max = 25, message = "Maximum 25 symbols.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private String brand;
     @Column(nullable = false, length = 25)
     @NotNull
     @Size(max = 25, message = "Maximum 25 symbols.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private String brandLine;
     @Column(nullable = false)
     @NotNull
     @Min(value = 1800, message = "The minimum year is 1800.")
     @Max(value = 2040, message = "The maximum year is 2040.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private int year;
     @Column(nullable = false)
     @NotNull
     @Min(value = 900, message = "Minimum engine capacity is 900 cm3.")
     @Max(value = 20000, message = "Maximum engine capacity is 20000 cm3.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private int engineCapacityCm3;
     @Column(nullable = false)
     @NotNull
     @Max(value = 999999, message = "Maximum mileage is 999 999 km.")
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private int mileage;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     @NotNull
-    private VehicleColor color;
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
+    private Color color;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 30)
     @NotNull
-    private VehicleBodyType bodyType;
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
+    private BodyType bodyType;
     @Enumerated(value = EnumType.STRING)
     @Column(nullable = false, length = 30)
     @NotNull
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private FuelType fuelType;
     @Version
     @Column(nullable = false)
     private int version;
 
-    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "vehicle__owner", joinColumns = @JoinColumn(name = "vehicle_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "owner_id", referencedColumnName = "id"))
-    private     Set<Owner> owners;
+    @JsonView(value = {View.Vehicle.class})
+    private Set<Owner> owners;
 
     public Vehicle() {
     }
@@ -127,11 +138,11 @@ public class Vehicle {
         this.mileage = mileage;
     }
 
-    public VehicleColor getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(VehicleColor color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 
@@ -143,11 +154,11 @@ public class Vehicle {
         this.owners = owners;
     }
 
-    public VehicleBodyType getBodyType() {
+    public BodyType getBodyType() {
         return bodyType;
     }
 
-    public void setBodyType(VehicleBodyType bodyType) {
+    public void setBodyType(BodyType bodyType) {
         this.bodyType = bodyType;
     }
 

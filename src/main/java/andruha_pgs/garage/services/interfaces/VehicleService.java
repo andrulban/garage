@@ -1,7 +1,7 @@
 package andruha_pgs.garage.services.interfaces;
 
 import andruha_pgs.garage.models.entities.Vehicle;
-import com.sun.xml.internal.ws.wsdl.writer.document.soap.BodyType;
+import andruha_pgs.garage.models.enums.BodyType;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

@@ -16,9 +16,9 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class OwnerServieImpl implements OwnerService {
+public class OwnerServiceImpl implements OwnerService {
     private OwnerRepository ownerRepository;
-    private static final Logger LOGGER = LogManager.getLogger(OwnerServieImpl.class);
+    private static final Logger LOGGER = LogManager.getLogger(OwnerServiceImpl.class);
 
     @Autowired
     public void setOwnerRepository(OwnerRepository ownerRepository) {
