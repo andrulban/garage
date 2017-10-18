@@ -46,14 +46,14 @@ public class OwnerRestControllerTest {
     }
 
     @Test
-    public void userCanGetMovie() throws Exception {
+    public void userCanGetOwner() throws Exception {
         mvc.perform(get("/owners"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8));
     }
 
     @Test
-    public void userCanNotPostMovie() throws Exception {
+    public void userCanNotPostOwner() throws Exception {
         mvc.perform(post("/owners")
                 .content(objectMapper.writeValueAsString(owner))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -61,7 +61,7 @@ public class OwnerRestControllerTest {
     }
 
     @Test
-    public void userCanNotPutMovie() throws Exception {
+    public void userCanNotPutOwner() throws Exception {
         mvc.perform(put("/owners/1")
                 .content(objectMapper.writeValueAsString(owner))
                 .contentType(MediaType.APPLICATION_JSON_UTF8))
@@ -69,7 +69,7 @@ public class OwnerRestControllerTest {
     }
 
     @Test
-    public void userCanNotDeleteMovie() throws Exception {
+    public void userCanNotDeleteOwner() throws Exception {
         mvc.perform(delete("/owners/1"))
                 .andExpect(status().isForbidden());
     }

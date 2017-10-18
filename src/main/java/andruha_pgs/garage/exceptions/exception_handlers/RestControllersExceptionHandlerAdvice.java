@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -61,6 +62,13 @@ public class RestControllersExceptionHandlerAdvice {
 
     @ExceptionHandler(EntityInsertIdGeneratedValueException.class)
     ResponseEntity<ErrorInfo> handleEntityInsertIdGeneratedValueException(EntityInsertIdGeneratedValueException ex) {
+        LOGGER.error("EntityIdInsertionException has been handled. Exception message: {}", ex.getMessage());
+        return new ResponseEntity<>(new ErrorInfo(new Date(), HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(), Collections.singleton(ex.getMessage())), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    ResponseEntity<ErrorInfo> handleObjectOptimisticLockingFailureException(ObjectOptimisticLockingFailureException ex) {
         LOGGER.error("EntityIdInsertionException has been handled. Exception message: {}", ex.getMessage());
         return new ResponseEntity<>(new ErrorInfo(new Date(), HttpStatus.BAD_REQUEST.value(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(), Collections.singleton(ex.getMessage())), HttpStatus.BAD_REQUEST);

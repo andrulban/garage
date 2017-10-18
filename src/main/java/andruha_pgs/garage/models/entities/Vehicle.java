@@ -71,6 +71,7 @@ public class Vehicle {
     private FuelType fuelType;
     @Version
     @Column(nullable = false)
+    @JsonView(value = {View.Vehicle.class, View.Owner.class})
     private int version;
 
     @ManyToMany(fetch = FetchType.EAGER)

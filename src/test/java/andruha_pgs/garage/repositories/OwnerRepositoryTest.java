@@ -51,14 +51,14 @@ public class OwnerRepositoryTest {
 
     @Test
     public void deleteOwnerRepositoryTest() {
-        Owner dbOwner = ownerRepository.findOne(1L);
+        Owner dbOwner = ownerRepository.findOne(2L);
         ownerRepository.delete(dbOwner);
-        Assert.assertNull(ownerRepository.findOne(1L));
+        Assert.assertNull(ownerRepository.findOne(2L));
     }
 
     @Test
     public void getOwnerRepositoryTest() {
-        Assert.assertEquals(ownerRepository.findOne(1L),ownerRepository.findOne(1L));
+        Assert.assertEquals(ownerRepository.findOne(2L),ownerRepository.findOne(2L));
     }
 
 }

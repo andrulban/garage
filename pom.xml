@@ -6,7 +6,7 @@
 	<groupId>andruha_pgs</groupId>
 	<artifactId>garage</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>garage</name>
 	<description>Demo project for PGS</description>
